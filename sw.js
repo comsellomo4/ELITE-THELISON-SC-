@@ -1,48 +1,20 @@
-const CACHE_NAME = "elite-sc-v2";
+const CACHE_NAME = "elite-sc-v3";
 
-// Arquivos essenciais (como teu site é SPA, só precisa disso)
-const CORE_ASSETS = [
-  "./",
-  "./index.html"
-];
-
-// INSTALAÇÃO
-self.addEventListener("install", event => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => {
-      return cache.addAll(CORE_ASSETS);
-    })
-  );
+// INSTALAÇÃO (rápida)
+self.addEventListener("install", () => {
   self.skipWaiting();
 });
 
-// ATIVAÇÃO (limpa cache antigo)
-self.addEventListener("activate", event => {
-  event.waitUntil(
-    caches.keys().then(keys => {
-      return Promise.all(
-        keys.map(key => {
-          if (key !== CACHE_NAME) {
-            return caches.delete(key);
-          }
-        })
-      );
-    })
-  );
+// ATIVAÇÃO
+self.addEventListener("activate", () => {
   self.clients.claim();
 });
 
-// FETCH (offline + fallback SPA)
+// FETCH (sempre pega da internet primeiro)
 self.addEventListener("fetch", event => {
   if (event.request.method !== "GET") return;
 
   event.respondWith(
-    fetch(event.request)
-      .then(response => {
-        return response;
-      })
-      .catch(() => {
-        return caches.match("./index.html");
-      })
+    fetch(event.request).catch(() => caches.match(event.request))
   );
 });
