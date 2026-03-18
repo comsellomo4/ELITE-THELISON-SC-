@@ -1,10 +1,14 @@
 {
   "name": "ELITE SC",
   "short_name": "ELITE",
-  "start_url": "./index.html",
+  "description": "Sistema profissional ELITE SC.",
+  "start_url": "/",
   "display": "standalone",
+  "orientation": "portrait",
   "background_color": "#000000",
   "theme_color": "#00ffcc",
+  "lang": "pt-BR",
+  "scope": "/",
   "icons": [
     {
       "src": "https://i.postimg.cc/mkLgDbV2/Picsart-26-03-18-15-18-08-306.png",
