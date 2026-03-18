@@ -1,0 +1,25 @@
+{
+  "name": "ELITE SC",
+  "short_name": "ELITE SC",
+  "description": "Aplicativo de disciplina, evolução pessoal e alta performance.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0f0f1f",
+  "theme_color": "#39ff14",
+  "icons": [
+    {
+      "src": "https://i.postimg.cc/mkLgDbV2/Picsart-26-03-18-15-18-08-306.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://i.postimg.cc/mkLgDbV2/Picsart-26-03-18-15-18-08-306.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
