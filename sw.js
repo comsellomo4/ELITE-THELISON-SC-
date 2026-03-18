@@ -1,20 +1,40 @@
-const CACHE_NAME = "elite-sc-v3";
+const CACHE_NAME = "elite-sc-v8";
 
-// INSTALAÇÃO (rápida)
-self.addEventListener("install", () => {
+const urlsToCache = [
+  "./",
+  "./index.html",
+  "https://i.postimg.cc/mkLgDbV2/Picsart-26-03-18-15-18-08-306.png"
+];
+
+// INSTALAÇÃO
+self.addEventListener("install", (event) => {
+  event.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => cache.addAll(urlsToCache))
+  );
   self.skipWaiting();
 });
 
 // ATIVAÇÃO
-self.addEventListener("activate", () => {
+self.addEventListener("activate", (event) => {
+  event.waitUntil(
+    caches.keys().then((keys) => {
+      return Promise.all(
+        keys.map((key) => {
+          if (key !== CACHE_NAME) {
+            return caches.delete(key);
+          }
+        })
+      );
+    })
+  );
   self.clients.claim();
 });
 
-// FETCH (sempre pega da internet primeiro)
-self.addEventListener("fetch", event => {
-  if (event.request.method !== "GET") return;
-
+// FETCH
+self.addEventListener("fetch", (event) => {
   event.respondWith(
-    fetch(event.request).catch(() => caches.match(event.request))
+    caches.match(event.request).then((response) => {
+      return response || fetch(event.request);
+    })
   );
 });
